@@ -24,7 +24,7 @@ Place it within a folder with a data and output folders beside it.
 
 Save the html pages that show the transactions you would like to scrape within the data folder.
 
-Run 
+In your command line run:
 
 ```
 ​```
