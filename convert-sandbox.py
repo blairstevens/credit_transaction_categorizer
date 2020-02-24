@@ -3,12 +3,12 @@ import pandas as pd
 import time
 from os import listdir
 from os.path import isfile, join
-from bs4 import BeautifulSoup
+from gazpacho import Soup
 from sklearn.preprocessing import LabelBinarizer
 from fire import Fire
 
 def souper_finder(name):
-    soup = BeautifulSoup((open(f"data/{name}").read()), "html.parser")
+    soup = Soup((open(f"data/{name}").read()), "html.parser")
     found = soup.find_all(class_= 'transaction-row')
     return found
 
