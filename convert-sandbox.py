@@ -16,37 +16,54 @@ def find_html_files():
                 html_files.append(file)
     return html_files
 
+html_files = find_html_files()
+html_files
+
 # Soup the html file to be able to work on it
 def souper_finder(name):
-    soup = Soup((open(f"data/{name}").read()), "html.parser")
-    found = soup.find_all(class_= 'transaction-row')
+    soup = Soup(open(f"data/{name}").read())
+    found = soup.find('tr', {'class' : 'transaction-row'})
     return found
+
+# soup = Soup(open(f"data/test_page_1.html").read())
+# found = soup.find('tr', {'class' : 'transaction-row'})
+
+found = souper_finder('test_page_1.html')
 
 # Pull the date from the transaction and build it into a list
 def date_ripper(found):
     dates = []
     for i in found:
-        x = str(i.find(class_='transactionDate'))
+        x = str(i.find('td', {'class' : 'transactionDate'}))
         x = (x.split('>')[2])
         x = (x.split('<')[0])
         dates.append(x)
     return dates
 
+# dates = date_ripper(found)
+# dates
+
 # Pull the description from the transaction and build it into a list
 def desc_ripper(found):
     desc = []
     for i in found:
-        y = i.find(class_='transactionDescription')
+        y = i.find('span', {'class' : 'transactionDescription'})
         desc.append(y)
     return desc
+
+# desc = desc_ripper(found)
+# desc
 
 # Pull the value from the transaction and build it into a list
 def val_ripper(found):
     val = []
     for i in found:
-        z = str(i.find(class_='negative'))
+        z = str(i.find('span', {'class' : 'negative'}))
         val.append(z)
     return val
+
+# val = val_ripper(found)
+# val
 
 # Pull the image string from the transaction and build it into a list
 def img_ripper(found):
@@ -56,6 +73,17 @@ def img_ripper(found):
         a = (a.split('=')[-1])
         img.append(a)
     return img
+
+def img_new(found):
+    img = []
+    for i in found:
+        a = str(i.find('img'))
+        #a = (a.split('=')[-1])
+        img.append(a)
+    return img
+
+img = img_new(found)
+img
 
 # Build a dataframe from the lists
 def frame_builder(dates, desc, val, img):
