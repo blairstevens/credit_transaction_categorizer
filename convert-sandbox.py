@@ -16,8 +16,8 @@ def find_html_files():
                 html_files.append(file)
     return html_files
 
-html_files = find_html_files()
-html_files
+#html_files = find_html_files()
+#html_files
 
 # Soup the html file to be able to work on it
 def souper_finder(name):
@@ -28,7 +28,7 @@ def souper_finder(name):
 # soup = Soup(open(f"data/test_page_1.html").read())
 # found = soup.find('tr', {'class' : 'transaction-row'})
 
-found = souper_finder('test_page_1.html')
+#found = souper_finder('test_page_1.html')
 
 # Pull the date from the transaction and build it into a list
 def date_ripper(found):
@@ -41,7 +41,7 @@ def date_ripper(found):
     return dates
 
 # dates = date_ripper(found)
-dates
+#dates
 
 # Pull the description from the transaction and build it into a list
 def desc_ripper(found):
@@ -52,7 +52,7 @@ def desc_ripper(found):
     return desc
 
 # desc = desc_ripper(found)
-desc
+#desc
 
 # Pull the value from the transaction and build it into a list
 def val_ripper(found):
@@ -63,7 +63,7 @@ def val_ripper(found):
     return val
 
 # val = val_ripper(found)
-val
+#val
 
 # Pull the image string from the transaction and build it into a list
 # def img_old(found):
@@ -86,8 +86,8 @@ def img_ripper(found):
         img.append(a)
     return img
 
-img = img_new(found)
-img
+#img = img_new(found)
+#img
 
 # Build a dataframe from the lists
 def frame_builder(dates, desc, val, img):
@@ -97,8 +97,8 @@ def frame_builder(dates, desc, val, img):
     df.Date = pd.to_datetime(df.Date)
     return df
 
-df = frame_builder(dates, desc, val, img)
-df
+#df = frame_builder(dates, desc, val, img)
+#df
 
 # Stack the previous functions and return a dataframe
 def html_to_frames():
@@ -135,7 +135,7 @@ def convert():
     df = frame_cleaner(frame)
     xport_frame(df)
 
-convert()
+#convert()
 
 # Use Fire to make it a CLI
 if __name__ == '__main__':
