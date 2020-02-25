@@ -41,7 +41,7 @@ def date_ripper(found):
     return dates
 
 # dates = date_ripper(found)
-# dates
+dates
 
 # Pull the description from the transaction and build it into a list
 def desc_ripper(found):
@@ -52,7 +52,7 @@ def desc_ripper(found):
     return desc
 
 # desc = desc_ripper(found)
-# desc
+desc
 
 # Pull the value from the transaction and build it into a list
 def val_ripper(found):
@@ -63,22 +63,26 @@ def val_ripper(found):
     return val
 
 # val = val_ripper(found)
-# val
+val
 
 # Pull the image string from the transaction and build it into a list
+# def img_old(found):
+#     img = []
+#     for i in found:
+#         a = str(i.img)
+#         a = (a.split('=')[-1])
+#         img.append(a)
+#     return img
+
 def img_ripper(found):
     img = []
     for i in found:
-        a = str(i.img)
-        a = (a.split('=')[-1])
-        img.append(a)
-    return img
-
-def img_new(found):
-    img = []
-    for i in found:
         a = str(i.find('img'))
-        #a = (a.split('=')[-1])
+        a = (a.split('='))
+        if (len(a)>=3):
+            a = a[2]
+        else:
+            a = 'check'
         img.append(a)
     return img
 
@@ -92,6 +96,9 @@ def frame_builder(dates, desc, val, img):
     df.Value = df['Value'].str.extract("(\d*\.?\d+)").astype(float)
     df.Date = pd.to_datetime(df.Date)
     return df
+
+df = frame_builder(dates, desc, val, img)
+df
 
 # Stack the previous functions and return a dataframe
 def html_to_frames():
@@ -127,6 +134,8 @@ def convert():
     frame = html_to_frames()
     df = frame_cleaner(frame)
     xport_frame(df)
+
+convert()
 
 # Use Fire to make it a CLI
 if __name__ == '__main__':
